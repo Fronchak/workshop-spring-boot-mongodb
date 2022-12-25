@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fronchak.workshopmongodb.domain.entities.User;
+import com.fronchak.workshopmongodb.domain.dtos.user.UserDTO;
 import com.fronchak.workshopmongodb.domain.services.UserService;
 
 @RestController
@@ -19,8 +19,8 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		List<User> list = service.findAll();
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<UserDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }
