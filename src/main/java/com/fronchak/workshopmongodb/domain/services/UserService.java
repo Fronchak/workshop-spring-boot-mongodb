@@ -30,4 +30,11 @@ public class UserService {
 				.orElseThrow(() -> new ResourceNotFoundException("User not found by ID: " + id));
 		return mapper.convertEntityToDTO(entity);
 	}
+	
+	public UserDTO save(UserDTO insertDTO) {
+		User entity = new User();
+		mapper.copyDTOToEntity(insertDTO, entity);
+		entity = repository.save(entity);
+		return mapper.convertEntityToDTO(entity);
+	}
 }

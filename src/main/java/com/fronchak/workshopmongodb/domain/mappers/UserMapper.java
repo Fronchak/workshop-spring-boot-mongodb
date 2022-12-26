@@ -24,4 +24,9 @@ public class UserMapper {
 		dto.setEmail(entity.getEmail());
 		return dto;
 	}
+	
+	public void copyDTOToEntity(UserDTO dto, User entity) {
+		entity.setName(dto.getName());
+		entity.setEmail(dto.getEmail());
+	}
 }
