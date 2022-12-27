@@ -18,7 +18,7 @@ import com.fronchak.workshopmongodb.domain.repositories.UserRepository;
 public class Instantiation implements CommandLineRunner {
 
 	@Autowired
-	private UserRepository userRpository;
+	private UserRepository userRepository;
 	
 	@Autowired
 	private PostRepository postRepository;
@@ -30,19 +30,22 @@ public class Instantiation implements CommandLineRunner {
 		
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
-		userRpository.deleteAll();
+		userRepository.deleteAll();
 		postRepository.deleteAll();
 		
 		User gabriel = new User(null, "Gabriel", "gabriel@gmail.com");
 		User alice = new User(null, "Alice", "alice@gmail.com");
 		User claudia = new User(null, "Claudia", "claudia@gmail.com");
 		
-		userRpository.saveAll(Arrays.asList(gabriel, alice, claudia));
+		userRepository.saveAll(Arrays.asList(gabriel, alice, claudia));
 		
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Title 1", "Post body 1", new AuthorDTO(gabriel));
 		Post post2 = new Post(null, sdf.parse("05/06/2018"), "Title 2", "Post body 2", new AuthorDTO(gabriel));
 		
 
 		postRepository.saveAll(Arrays.asList(post1, post2));
+		
+		gabriel.getPosts().addAll(Arrays.asList(post1, post2));
+		userRepository.save(gabriel);
 	}
 }
