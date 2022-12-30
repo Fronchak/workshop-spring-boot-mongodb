@@ -1,4 +1,4 @@
-package com.fronchak.workshopmongodb.api;
+package com.fronchak.workshopmongodb.api.controllers;
 
 import java.net.URI;
 import java.util.List;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fronchak.workshopmongodb.domain.dtos.user.UserDTO;
+import com.fronchak.workshopmongodb.domain.entities.Post;
 import com.fronchak.workshopmongodb.domain.services.UserService;
 
 @RestController
@@ -55,5 +56,11 @@ public class UserController {
 	public ResponseEntity<UserDTO> update(@RequestBody UserDTO updateDTO, @PathVariable String id) {
 		UserDTO dto = service.update(updateDTO, id);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		List<Post> posts = service.findPostsByUser(id);
+		return ResponseEntity.ok().body(posts);
 	}
 }

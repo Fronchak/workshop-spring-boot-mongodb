@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fronchak.workshopmongodb.domain.dtos.user.UserDTO;
+import com.fronchak.workshopmongodb.domain.entities.Post;
 import com.fronchak.workshopmongodb.domain.entities.User;
 import com.fronchak.workshopmongodb.domain.exceptions.ResourceNotFoundException;
 import com.fronchak.workshopmongodb.domain.mappers.UserMapper;
@@ -50,5 +51,11 @@ public class UserService {
 		mapper.copyDTOToEntity(dto, entity);
 		entity = repository.save(entity);
 		return mapper.convertEntityToDTO(entity);
+	}
+	
+	public List<Post> findPostsByUser(String userId) {
+		User user = repository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found by ID: " + userId));
+		return user.getPosts();
 	}
 }
