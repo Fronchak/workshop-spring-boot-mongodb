@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.fronchak.workshopmongodb.domain.dtos.comment.CommentOutputDTO;
 import com.fronchak.workshopmongodb.domain.dtos.user.AuthorDTO;
 import com.fronchak.workshopmongodb.domain.entities.Post;
 import com.fronchak.workshopmongodb.domain.entities.User;
@@ -42,10 +43,19 @@ public class Instantiation implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Title 1", "Post body 1", new AuthorDTO(gabriel));
 		Post post2 = new Post(null, sdf.parse("05/06/2018"), "Title 2", "Post body 2", new AuthorDTO(gabriel));
 		
+		CommentOutputDTO comment1 = new CommentOutputDTO("Boa Viagem", sdf.parse("07/06/2018"), new AuthorDTO(alice));
+		CommentOutputDTO comment2 = new CommentOutputDTO("Boa Sorte!", sdf.parse("08/06/2018"), new AuthorDTO(claudia));
+		
+		post1.addComment(comment1);
+		post1.addComment(comment2);
 
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
 		gabriel.getPosts().addAll(Arrays.asList(post1, post2));
 		userRepository.save(gabriel);
+		
+
+		
+		
 	}
 }
