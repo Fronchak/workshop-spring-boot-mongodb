@@ -1,5 +1,8 @@
 package com.fronchak.workshopmongodb.domain.mappers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.fronchak.workshopmongodb.domain.dtos.post.PostDTO;
@@ -24,5 +27,11 @@ public class PostMapper {
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		return dto;
+	}
+	
+	public List<PostDTO> convertEntityListToOutputDTOList(List<Post> list) {
+		return list.stream()
+				.map(entity -> convertEntityToDTO(entity))
+				.collect(Collectors.toList());
 	}
 }
