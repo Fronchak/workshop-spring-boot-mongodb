@@ -1,7 +1,11 @@
 package com.fronchak.workshopmongodb.domain.dtos.post;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.fronchak.workshopmongodb.domain.dtos.comment.CommentOutputDTO;
 
 public class PostDTO implements Serializable {
 
@@ -12,6 +16,8 @@ public class PostDTO implements Serializable {
 	private String title;
 	private String body;
 	private PostAuthorDTO author;
+	
+	private List<CommentOutputDTO> comments = new ArrayList<>();
 	
 	public String getId() {
 		return id;
@@ -51,6 +57,14 @@ public class PostDTO implements Serializable {
 
 	public void setAuthor(PostAuthorDTO author) {
 		this.author = author;
+	}
+	
+	public List<CommentOutputDTO> getComments() {
+		return comments;
+	}
+	
+	public void addComment(CommentOutputDTO comment) {
+		comments.add(comment);
 	}
 	
 	public static class PostAuthorDTO implements Serializable {

@@ -19,6 +19,7 @@ public class PostMapper {
 		dto.setTitle(entity.getTitle());
 		dto.setBody(entity.getBody());
 		dto.setAuthor(convertEntityToPostAuthorDTO(entity.getAuthor()));
+		entity.getComments().forEach(comment -> dto.addComment(comment));
 		return dto;
 	}
 	
@@ -34,4 +35,6 @@ public class PostMapper {
 				.map(entity -> convertEntityToDTO(entity))
 				.collect(Collectors.toList());
 	}
+	
+	
 }

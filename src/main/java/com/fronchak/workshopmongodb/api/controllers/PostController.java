@@ -1,5 +1,6 @@
 package com.fronchak.workshopmongodb.api.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,19 @@ public class PostController {
 		List<PostDTO> list = service.searchTitle(text);
 		return ResponseEntity.ok().body(list);
 	}
+	
+	@GetMapping(value = "/searchPost")
+	public ResponseEntity<List<PostDTO>> fullSearch(
+			@RequestParam(name = "title", defaultValue = "") String title,
+			@RequestParam(name = "startDate", defaultValue = "") String startDate,
+			@RequestParam(name = "endDate", defaultValue = "") String endDate
+			) {
+		title = decoder.decodeParam(title);
+		Date today = new Date();
+		Date start = decoder.convertDate(startDate, new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000)));
+		Date end = decoder.convertDate(endDate, today);
+		List<PostDTO> list = service.fullSearch(title, start, end);
+		return ResponseEntity.ok().body(list);
+	}
+	
 }
