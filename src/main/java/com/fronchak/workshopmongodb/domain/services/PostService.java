@@ -33,4 +33,10 @@ public class PostService {
 		List<Post> list = repository.findByTitleContainingIgnoreCase(text);
 		return mapper.convertEntityListToOutputDTOList(list);
 	}
+	
+	@Transactional(readOnly = true)
+	public List<PostDTO> searchTitle(String text) {
+		List<Post> list = repository.searchTitle(text);
+		return mapper.convertEntityListToOutputDTOList(list);
+	}
 }
